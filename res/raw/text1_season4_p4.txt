@@ -1,0 +1,81 @@
+﻿import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import android.app.Dialog;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.Window;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+//این کلاس یک View برای کلاس Game Activity میباشد :
+public class GameView extends View{
+  
+//تعریف چند متغیر مورد نیاز در برنامه . شئ deck یک آرایه لیست با محتوای از نوع کلاس Card میباشد(یعنی هر عضو آن یک Card است) که بمنظور ذخیره ی کارتهای بازی از آن استفاده شده است :
+  private Context myContext;
+  private List<Card> deck = new ArrayList<Card>();
+  private int scaledCardW;
+  private int scaledCardH;
+  private int screenW;
+  private int screenH;
+  
+  
+  public GameView(Context context){
+    super(context);
+    myContext = context;
+  }
+  
+  
+  
+    @Override
+    public void onSizeChanged (int w, int h, int oldw, int oldh){
+        super.onSizeChanged(w, h, oldw, oldh);
+        screenW = w;
+        screenH = h;
+//با شروع اکتیویتی کنونی و تعیین کلاس GameView بعنوان View آن ، متد ()onSizeChanged فراخوانی شده و سپس متد زیر فراخوانی میشود : 
+     initCards();
+       }
+       
+       
+  
+  
+  protected void onDraw(Canvas canvas){
+    canvas.drawRGB(219,207,0);
+//اولین عضو deck(deck همان لیست آرایه ی اصلی برنامه است که تمام کارتها در ابتدا در آن ذخیره شده اند) در سمت بالا و چپ صفحه ی نمایش نشان داده میشود :
+    canvas.drawBitmap(deck.get(0).getBitmap(), 0, 0, null);
+  }
+  
+  
+  
+//عدد 102 تا 114 یعنی ۱۳ کارت بعنوان دسته اول از کارتها(خشت یا Diamond) ، عدد 202 تا 214 یعنی ۱۳ کارت بعنوان دسته دوم از کارتها(گیشنیز یا Club) ، عدد 302 تا 314 یعنی ۱۳ کارت بعنوان دسته سوم از کارتها(دل یا Heart) ، عدد 402 تا 414 یعنی ۱۳ کارت بعنوان دسته چهارم از کارتها(پیک یا Spade) تعیین شده اند و تصاویری با همین نام در پوشه ی drawable وجود دارند . در متد زیر تصاویر با ابعاد تعیین شده(scaled) به این کارتها نسبت داده میشود و در نهایت ، کارتها در آرایه ی deck قرار میگیرند .
+در ابتدا یک شئ از کلاس Card میسازیم ، سپس یک منبع تصویر را تعیین میکنیم ،  سپس یک Bitmap را از منبع مشخص شده میسازیم ، حال ابعاد Bitmap را تعیین میکنیم ، سپس بوسیله ی متد ()setBitmap و شئ tempCard از کلاس Card بیتمپ تعیین شده را به هر کارت نسبت میدهیم و کارتها را در deck ذخیره میکنیم :
+	private void initCards() {
+		for (int i = 0; i < 4; i++) {
+			for (int j = 102; j < 115; j++) {
+				int tempId = j + (i*100);
+				Card tempCard = new Card(tempId);
+				int resourceId = getResources().getIdentifier("card" + tempId, "drawable", myContext.getPackageName());
+				Bitmap tempBitmap = BitmapFactory.decodeResource(myContext.getResources(), resourceId);
+		        scaledCardW = (int) (screenW/8);
+		        scaledCardH = (int) (scaledCardW*1.28);
+				Bitmap scaledBitmap = Bitmap.createScaledBitmap(tempBitmap, scaledCardW, scaledCardH, false); 
+				tempCard.setBitmap(scaledBitmap);
+				deck.add(tempCard);
+			}
+		}
+	}
+  
+  
+  
+  
+}

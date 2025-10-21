@@ -1,0 +1,30 @@
+﻿import android.app.Activity;
+import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
+
+import com.example.whack_a_mole.R;
+
+public class WhackAMoleActivity extends Activity {
+
+ private WhackAMoleView myWhackAMoleView;
+ /** Called when the activity is first created. */
+ @Override
+ public void onCreate(Bundle savedInstanceState) {
+ super.onCreate(savedInstanceState);
+
+//حذف تیتر از صفحه ی بازی : requestWindowFeature(Window.FEATURE_NO_TITLE); 
+
+//صفحه ای که تیتر از آن حذف شده را حالا تمام صفحه میکنیم :
+ getWindow().setFlags
+(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//اتصال صفحه با لایه ی خود :
+ setContentView(R.layout.whackamole_layout); 
+ myWhackAMoleView = (WhackAMoleView) 
+findViewById(R.id.mole); 
+
+//روشن ماندن صفحه ی بازی در حین انجام بازی و بخواب نرفتن اسکرین(صفحه ی نمایش) :
+ myWhackAMoleView.setKeepScreenOn(true);
+ }
+}

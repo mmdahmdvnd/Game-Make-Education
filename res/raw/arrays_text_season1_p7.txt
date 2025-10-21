@@ -1,0 +1,13 @@
+﻿
+***************** array.xml ******************
+
+//این فایل یک منبع است که شامل چهار آیتم است و در لیست اسپینر در صفحه ی choose_suit_dialog.xml بکار میرود :
+
+<resources>
+     <string-array name="suits">
+           <item>Diamonds</item>
+           <item>Clubs</item>
+           <item>Hearts</item>
+           <item>Spades</item>  
+     </string-array>
+</resources>

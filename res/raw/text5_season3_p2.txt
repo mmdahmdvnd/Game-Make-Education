@@ -1,0 +1,100 @@
+﻿import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Rect;
+
+import java.util.Random;
+
+//این کلاس ویژگیهای شئ enemy را در بر دارد .
+public class EnemyShip{
+    private Bitmap bitmap;
+    private int x, y;
+    private int speed = 1;
+
+    // Detect mines leaving the screen
+    private int maxX;
+    private int minX;
+    // Spawn mines within screen bounds
+    private int maxY;
+    private int minY;
+
+    // A hit box for collision detection
+    private Rect hitBox;
+
+
+    // Constructor
+//****طریقه ی اجرای کلاس ****
+//هر زمان که کلاس فراخوانی شود ابتدا سازنده ی کلاس فراخوانی شده و مقداردهی ها را انجام میدهد . که در اینجا مکان اولیه و سرعت اولیه ی شئ enemy تعیین میشود و سپس در حین بازی با متد update این مقادیر تغییر میکنند و طبق این متد مقدار جدید میگیرند :
+    public EnemyShip(Context context, int screenX, int screenY){
+        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.enemy);
+
+//ماکزیمم اندازه ی X و Y به اندازه ی عرض و طول صفحه نمایش میباشند :
+        maxX = screenX;
+        maxY = screenY;
+        minX = 0;
+        minY = 0;
+
+//سرعت enemy بشکل Random تعیین میشود :
+        Random generator = new Random();
+        speed = generator.nextInt(6)+10;
+
+//در اینجا یعنی سازنده ی کلاس ، مقدار x و y یعنی مکان نمایش اولیه ی enemy تعیین شده است و یک HitBox در اطراف شئ enemy نمایش داده میشود که این چهارگوشه از نقطه ی x و y شروع میشود و به اندازه ی طول و عرض شئ enemy اطراف آنرا میگیرد :
+        x = screenX;
+        y = generator.nextInt(maxY) - bitmap.getHeight();
+
+        // Initialize the hit box
+        hitBox = new Rect(x, y, bitmap.getWidth(), bitmap.getHeight());
+
+
+    }
+
+//این متد با هر مقداری که فراخوانی شود ، همان اندازه از مقدار x کم میشود و بعنوان مکان جدیدی که باید enemy در آنجا نمایش داده شود تعیین میشود . در اینجا دو مقدار برای تعیین x آمده است به این منظور که در ابتدا playerSpeed از x کم میشود و مقدار جدید در x ثبت میشود و سپس از مقدار جدید x مقدار speed کم میشود و در x ثبت میشود . اینکار به این منظور است که در صورت لمس صفحه نمایش و حرکت player به بالا ، همزمان دو مقداری که در بالا گفته شد ، از x کم شوند و این باعث سرعت گرفتن انتقال اشیاء به سمت چپ صفحه نمایش میشود : 
+    public void update(int playerSpeed) {
+        x -= playerSpeed;
+        x -= speed;
+
+        //respawn when off screen
+//این قطعه کد در صورتیکه مقدار x برای نمایش شئ از minX - bitmap.getWidth کمتر شود یعنی تصویر شئ در سمت چپ و خارج از صفحه نمایش تشکیل شود(یعنی شئ با حرکت کردن از صفحه خارج شود) مقداری جدید برای x , y و speed و بمنظور نمایش مجدد آن تعیین میشود :
+        if (x < minX - bitmap.getWidth()) {
+            Random generator = new Random();
+            speed = generator.nextInt(10) + 10;
+            x = maxX;
+            y = generator.nextInt(maxY) - bitmap.getHeight();
+        }
+
+//این قطعه کد بر حسب x و y که درچهار خط کد بالا تعیین شد ، یک چهارگوشه در اطراف شئ تعیین میکند : 
+        // Refresh hit box location
+        hitBox.left = x;
+        hitBox.top = y;
+        hitBox.right = x + bitmap.getWidth();
+        hitBox.bottom = y + bitmap.getHeight();
+
+    }
+
+    //Getters and Setters
+    public Bitmap getBitmap(){
+
+        return bitmap;
+    }
+    public int getX() {
+
+        return x;
+    }
+
+    public int getY() {
+
+        return y;
+    }
+
+    public Rect getHitbox(){
+        return hitBox;
+    }
+
+    // This is used by the TDView update() method to
+    // Make an enemy out of bounds and force a re-spawn
+    public void setX(int x) {
+        this.x = x;
+    }
+
+
+}

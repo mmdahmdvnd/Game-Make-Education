@@ -1,0 +1,80 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:tools="http://schemas.android.com/tools"
+       android:id="@+id/scrollView2"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content" 
+       android:background="@drawable/back_main">
+       
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="900dp"
+     android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageViewtitrmenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp"
+        android:src="@drawable/titr"
+        android:layout_gravity="center" />
+
+     <ImageView
+        android:id="@+id/imageView0menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"      
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:src="@drawable/introduction0" 
+        android:layout_gravity="center"/>
+    
+    
+     <ImageView
+        android:id="@+id/imageView1menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"      
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:src="@drawable/crazy80" 
+        android:layout_gravity="center"/>
+    
+    <ImageView
+        android:id="@+id/imageView2menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"      
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:src="@drawable/whack_a_mole0" 
+        android:layout_gravity="center"/>
+
+    <ImageView
+        android:id="@+id/imageView3menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"     
+        android:layout_marginTop="70dp"
+        android:src="@drawable/tappy_defender0"
+        android:layout_gravity="center" 
+        android:layout_marginBottom="30dp"/>
+
+     <ImageView
+        android:id="@+id/imageView4menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"     
+        android:layout_marginTop="70dp"
+        android:src="@drawable/memory0"
+        android:layout_gravity="center" 
+        android:layout_marginBottom="30dp"/>
+    
+    <ImageView
+        android:id="@+id/imageView5menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="70dp"
+        android:layout_gravity="center" 
+        android:src="@drawable/resource" />
+    
+</LinearLayout>
+
+</ScrollView>

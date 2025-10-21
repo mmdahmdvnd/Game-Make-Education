@@ -1,0 +1,56 @@
+package com.mmd.educationandroidgame;
+
+import android.app.Activity;
+import android.graphics.Point;
+import android.os.Bundle;
+import android.view.Display;
+import android.view.Window;
+import android.view.WindowManager;
+
+public class GameActivityTappyDefP2 extends Activity {
+
+    // Our object to handle the View
+    private TDViewTappyDefP2 gameView;
+
+    // This is where the "Play" button from HomeActivity sends us
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE); 
+        getWindow().setFlags
+       (WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+       WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        
+        // Get a Display object to access screen details
+        Display display = getWindowManager().getDefaultDisplay();
+        // Load the resolution into a Point object
+        Point size = new Point();
+        display.getSize(size);
+
+        // Create an instance of our Tappy Defender View
+        // Also passing in this.
+        // Also passing in the screen resolution to the constructor
+        gameView = new TDViewTappyDefP2(this, size.x, size.y);
+
+        // Make our gameView the view for the Activity
+        setContentView(gameView);
+
+    }
+
+    // If the Activity is paused make sure to pause our thread
+    @Override
+    protected void onPause() {
+        super.onPause();
+        gameView.pause();
+    }
+
+    // If the Activity is resumed make sure to resume our thread
+    @Override
+    protected void onResume() {
+        super.onResume();
+        gameView.resume();
+    }
+
+
+}

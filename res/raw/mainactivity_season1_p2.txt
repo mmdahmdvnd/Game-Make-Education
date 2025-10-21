@@ -1,0 +1,20 @@
+﻿import android.app.Activity;
+import android.widget.TextView;
+import android.os.Bundle;
+
+
+public class MainActivity extends Activity {
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+//یک شئ از کلاس drawBitmapView ایجاد میکنیم :
+drawBitmapView drawbv = new drawBitmapView(this);
+
+//اتصال صفحه ی MainActivity را با ویوی(View) خودش برقرار میکنیم :
+    setContentView(drawbv);
+        
+  }
+
+}

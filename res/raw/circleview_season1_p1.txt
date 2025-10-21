@@ -1,0 +1,63 @@
+﻿import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.view.MotionEvent;
+import android.view.View;
+
+
+
+//این کلاس یک شئ به کلاس MainActivity از نوع View میدهد پس آنرا از View مشتق میکنیم :
+
+public class CircleView extends View {
+
+
+
+//تعریف متغیرهای مورد نیاز در برنامه . redPaint متغیری جهت تعریف یک شئ از کلاس Paint . متغیرهای circleX و circleY طول و عرض نقطه ی مرکز دایره میباشند(در صفحه مختصات دوبعدی یا اقلیدسی) و radius شعاع دایره میباشد :
+	private Paint redPaint;
+	private int circleX;
+	private int circleY;
+	private float radius;
+	
+//سازنده ی کلاس و مقداردهی متغیرها :
+	public CircleView(Context context) {
+		super(context);
+		redPaint = new Paint();
+		redPaint.setAntiAlias(true);
+		redPaint.setColor(Color.RED);
+		circleX = 100;
+		circleY = 100;
+		radius = 30;
+	}
+	
+//متد onDraw متد اصلی جهت ترسیم و طراحی مورد نظر است . کلاس Canvas(طبق معنای لاتین خود)
+در صفحه طراحی را انجام میدهد(بوسیله ی متدهای ()drawRect و ()drawText و ()drawLine و ()drawBitmap میتوان در صفحه مربع مستطیل , تکست ,خط و یا تصویر رسم کرد . با متد (a,b,c)drawRGB میتوان رنگ صفحه نمایش را با کد رنگی که (a,b,c) میباشد تغییر رنگ داد . هر کدام از  a و b و c عددی بین 0 تا 255 میباشند) :
+	 @Override 
+	 protected void onDraw(Canvas canvas) {
+		 canvas.drawCircle(circleX, circleY, radius, redPaint);
+	 }
+
+//متد onTouchEvent زمانی فراخوانی میشود که کاربر صفحه نمایش را لمس کند . ()getX و ()getY
+طول و عرض نقطه لمس شده از صفحه را در خود ذخیره میکنند . هر کدی که در هر کدام از اکشنها(MOVE , DOWN , UP) بنویسیم در همان زمان که اکشن رخ دهد ، اجرا میشود . مثلا در متد زیر در اکشن ACTION_UP طول و عرض نقطه ی لمس شده از صفحه بعنوان طول و عرض نقطه ی مرکز دایره تنظیم و تعیین میشود . این یعنی هر نقطه از صفحه را که لمس کنیم دایره در آنجا رسم میشود که البته این فرمان رسم ، توسط متد ()invalidate صادر میشود و متد ()onDraw را فراخوانی و اجرا میکند :
+	 public boolean onTouchEvent(MotionEvent event) {
+	        int eventaction = event.getAction();   
+	        int X = (int)event.getX();
+	        int Y = (int)event.getY();
+
+	        switch (eventaction ) {
+	        case MotionEvent.ACTION_DOWN: 
+	        	break;
+	        case MotionEvent.ACTION_MOVE: 
+	        	break;
+        	
+	        case MotionEvent.ACTION_UP:
+	        	circleX = X;
+	        	circleY = Y;
+	        	break;
+	        } 
+	        invalidate();
+			return true;
+ //متد ()invalidate هر زمان که "تغییری" رخ دهد فراخوانی میشود . بعنوان مثال اگر دو مقداردهی circleX = X و circleY = Y را در قسمت ACTION_MOVE قرار دهید ، با حرکت انگشت روی صفحه نمایش ، یک دایره رسم شده و در جهت حرکت انگشت حرکت میکند . پس با تغییر نقطه ی تماس مرتبا متد ()invalidate فراخوانی شده و متد ()onDraw را فراخوانی و اجرا میکند . کاربرد این متد در بخشهای بعد بهتر مشخص میشود . 
+	}
+ 
+}

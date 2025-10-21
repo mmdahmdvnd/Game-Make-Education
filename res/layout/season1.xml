@@ -1,0 +1,329 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:tools="http://schemas.android.com/tools"
+       android:id="@+id/scrollView1"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:background="@drawable/back_">
+
+
+<RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     >
+    
+
+     <TextView
+        android:id="@+id/textView1_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="55dp"
+        android:text="فصل دوم :  هشت دیوانه" 
+        android:textSize="21dp"   
+        android:textColor="#fa8405"  />
+    
+    <TextView
+        android:id="@+id/textView2_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1_season1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:text="بخش اول : طراحی دایره"
+        android:textSize="17dp"
+        android:textColor="#05e005" />
+    
+    <ImageView
+        android:id="@+id/imageView1_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView2_season1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ejra_projeh" />
+
+    <ImageView
+        android:id="@+id/imageView2_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/imageView1_season1"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/source" />
+    
+    <TextView
+        android:id="@+id/textView3_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView4_season1"
+        android:layout_alignRight="@+id/textView1_season1"
+        android:layout_below="@+id/imageView2_season1"
+        android:layout_marginTop="70dp"
+        android:text="بخش دوم : طراحی Bitmap"
+        android:textColor="#05e005"
+        android:textSize="17dp" />
+    
+    <ImageView
+        android:id="@+id/imageView3_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView3_season1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ejra_projeh" />
+
+    <ImageView
+        android:id="@+id/imageView4_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/imageView3_season1"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/source" />
+
+ <TextView
+     android:id="@+id/textView4_season1"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_below="@+id/imageView4_season1"
+     android:layout_centerHorizontal="true"
+     android:layout_marginTop="70dp"
+     android:text="بخش سوم : طراحی صفحه ورود"
+     android:textColor="#05e005"
+     android:textSize="17dp" />
+    
+    <ImageView
+        android:id="@+id/imageView5_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView4_season1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ejra_projeh" />
+
+    <ImageView
+        android:id="@+id/imageView6_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/imageView5_season1"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/source" />
+    
+    <TextView
+        android:id="@+id/textView5_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView6_season1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:text="بخش  چهارم: طراحی صفحه بازی‌"
+        android:textSize="17dp"
+       
+        android:textColor="#05e005" />
+
+    <ImageView
+        android:id="@+id/imageView7_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView5_season1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ejra_projeh" />
+
+    <ImageView
+        android:id="@+id/imageView8_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/imageView7_season1"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/source" />
+    
+        <TextView
+        android:id="@+id/textView6_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView8_season1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:text="بخش پنجم: طراحی محیط بازی "
+        android:textSize="17dp"
+      
+        android:textColor="#05e005" />
+
+    <ImageView
+        android:id="@+id/imageView9_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView6_season1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ejra_projeh" />
+
+    <ImageView
+        android:id="@+id/imageView10_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/imageView9_season1"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/source" />
+    
+    
+    
+    
+    
+    
+ <TextView
+        android:id="@+id/textView7_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView10_season1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:text="بخش ششم : شروع بازی"
+        android:textSize="17dp"
+        android:textColor="#05e005" />
+    
+    <ImageView
+        android:id="@+id/imageView11_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView7_season1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ejra_projeh" />
+
+    <ImageView
+        android:id="@+id/imageView12_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/imageView11_season1"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/source" />
+    
+     <TextView
+        android:id="@+id/textView8_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView12_season1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:text="بخش هفتم: تکمیل بازی"
+        android:textSize="17dp"
+        android:textColor="#05e005" />
+    
+    <ImageView
+        android:id="@+id/imageView13_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView8_season1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ejra_projeh" />
+
+    <ImageView
+        android:id="@+id/imageView14_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/imageView13_season1"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/source" />
+
+    
+    
+    
+    
+    
+ <TextView
+        android:id="@+id/textView9_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView14_season1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:text="بخش هشتم: تکمیل بازی"
+        android:textSize="17dp"
+        android:textColor="#05e005" />
+    
+    <ImageView
+        android:id="@+id/imageView15_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView9_season1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ejra_projeh" />
+
+    <ImageView
+        android:id="@+id/imageView16_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/imageView15_season1"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/source" />
+
+    
+    
+    
+    
+    <TextView
+        android:id="@+id/textView10_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView16_season1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:text="بخش نهم: اتمام بازی"
+        android:textSize="17dp"
+        android:textColor="#05e005" />
+    
+    <ImageView
+        android:id="@+id/imageView17_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView10_season1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ejra_projeh" />
+
+    <ImageView
+        android:id="@+id/imageView18_season1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/imageView17_season1"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/source" />
+    
+    
+    
+    
+    <ImageView
+        android:id="@+id/imageView_line1"
+        android:layout_width="match_parent"      
+        android:layout_below="@+id/imageView18_season1"
+        android:layout_centerHorizontal="true"
+        android:layout_height="3dp" 
+        android:background="#000000"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="15dp"
+       />
+</RelativeLayout>
+
+</ScrollView>

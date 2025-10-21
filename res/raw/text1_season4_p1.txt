@@ -1,0 +1,16 @@
+﻿
+***************** whackamole_layout.xml ******************
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+//در این صفحه SurfaceView را به لایه ی xml برنامه متصل میکنیم چون بشکل ثانویه در Thread جداگانه اجرا خواهد شد(در بازی اول یعنی CrazyEight ویوی(View) برنامه در فایل جاوا و اصلی برنامه اجرا میشد) .
+    <com.example.whack_a_mole.WhackAMoleView
+      android:id="@+id/mole"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"/>
+
+</LinearLayout>

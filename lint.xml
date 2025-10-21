@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="HardcodedText">
+        <ignore path="res/layout/mainfrag_season2_p2.xml" />
+        <ignore path="res/layout/mainfrag_season3_p2.xml" />
+    </issue>
+</lint>

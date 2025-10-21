@@ -1,0 +1,184 @@
+﻿import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import android.app.Dialog;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.Window;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+//در این بخش ظاهر محیط بازی طراحی میشود و در بخشهای بعد نحوه ی طراحی عملکردها در بازی شرح داده میشود .
+public class GameView extends View{
+  
+  private Context myContext;
+  
+  private List<Card> deck = new ArrayList<Card>();
+  
+//سه آرایه لیست بمنظور ذخیره کارتهای کاربر و کارتهای حریف و کارتهای موجود در زمینه ی بازی تعریف میکنیم . سایر متغیرهای مورد نیاز در برنامه را نیز تعریف میکنیم :
+private List<Card> myHand = new ArrayList<Card>();
+  private List<Card> oppHand = new ArrayList<Card>();
+
+  private List<Card> discardPile = new ArrayList<Card>();
+
+  private int scaledCardW;
+  private int scaledCardH;
+  private int screenW;
+  private int screenH;
+  
+  private float scale;
+  
+  private Paint whitePaint;
+  
+  private int oppScore;
+  private int myScore;
+  
+  private Bitmap cardBack;
+  
+//سازنده ی برنامه و مقداردهی متغیرها :
+  public GameView(Context context){
+    super(context);
+    myContext = context;
+
+//متغیر scale در اینجا density یا همان چگالی(تراکم) پیکسلهای صفحه نمایش در دیوایسی(دستگاهی) که برنامه در آن نصب و اجرا میشود را در خود ذخیره میکند . چون این مقدار در دیوایسهای مختلف متفاوت است پس ابعادی که در برنامه استفاده میکنیم را بر حسب خصوصیت همان دیوایس تعیین میکنین :
+    scale = myContext.getResources().getDisplayMetrics().
+density;
+
+//تعریف خصوصیت شئ ایی که از Paint ساخته ایم بمنظور طراحی متن های مورد نیاز در محیط بازی :
+ whitePaint = new Paint(); 
+ whitePaint.setAntiAlias(true); 
+ whitePaint.setColor(Color.WHITE);
+ whitePaint.setStyle(Paint.Style.STROKE);
+ whitePaint.setTextAlign(Paint.Align.LEFT);
+ whitePaint.setTextSize(scale*15);
+  }
+  
+  
+  
+    @Override
+    public void onSizeChanged (int w, int h, int oldw, int oldh){
+        super.onSizeChanged(w, h, oldw, oldh);
+        screenW = w;
+        screenH = h;
+//فراخوانی متدهایی که در زیر تعریف شده اند :  
+     initCards();
+     
+     dealCards();
+     
+   drawCard(discardPile);
+     
+//تعیین Bitmap جهت نمایش پشت کارت :
+     Bitmap tempBitmap = 
+BitmapFactory.decodeResource
+(myContext.getResources(),
+R.drawable.card_back);
+
+//تعیین دو ابعاد برای طول و عرض کارتهایی که در محیط بازی نمایش داده میشوند . این ابعاد را برحسب عرض صفحه نمایش که از متد ()onSizeChanged دریافت کرده ایم تعیین میکنیم(یعنی screenW) :
+scaledCardW = (int) (screenW/8);
+scaledCardH = (int) (scaledCardW*1.28);
+
+//تعیین ابعاد برای تصویر پشت کارت(بر حسب ابعاد تعیین شده) :
+cardBack = Bitmap.createScaledBitmap
+(tempBitmap, scaledCardW, 
+scaledCardH,false);
+       }
+       
+       
+  
+ //این متد کار طراحی و نمایش را برعهده دارد . در ابتدا رنگ محیط بازی را تعیین میکند . سپس دو text بمنظور نمایش امتیازهای کاربر و حریف(که در اینجا کامپیوتر است) نمایش میدهد . سپس برای هر بازیکن هفت عدد کارت نمایش میدهد که البته کارتهای حریف به پشت نمایش داده میشوند(تا حریف مقابل نتواند کارتها را ببیند) . سپس یک کارت به پشت ، در وسط محیط بازی نمایش داده میشود(این کارت همان drawCard است که زمانیکه کارتهای دست حریفان تمام شود باید از آن استفاده کنند و کارت جدید به دست خود اضافه کنند) . در آخر نیز یک کارت در وسط محیط بازی در کنار drawCard با نام discardPile نمایش داده میشود که بازی برحسب نوع این کارت تعیین میشود و بازیکنان طبق نوع این کارت بازی را شروع و ادامه میدهند :
+  protected void onDraw(Canvas canvas){
+    
+    canvas.drawRGB(151,160,24);
+    
+   		canvas.drawText("Computer Score: " + Integer.toString(oppScore), 10, whitePaint.getTextSize()+10, whitePaint);		
+		canvas.drawText("My Score: " + Integer.toString(myScore), 10, screenH-whitePaint.getTextSize()-30, whitePaint);
+  
+  
+  
+  for (int i = 0; i < myHand.size(); i++) {
+ if (i < 7) {
+ canvas.drawBitmap(myHand.get(i).getBitmap(),
+ i*(scaledCardW+5),
+ screenH-scaledCardH-
+ whitePaint.getTextSize()-(50*scale),
+ null);
+ }
+ }
+ 
+ for (int i = 0; i < oppHand.size(); i++) {
+ canvas.drawBitmap(cardBack,
+ i*(scale*5),
+ whitePaint.getTextSize()+(50*scale),
+ null);
+}
+ 
+ 
+ canvas.drawBitmap(cardBack, 
+(screenW/2)-cardBack.getWidth()-10, 
+(screenH/2)-(cardBack.getHeight()/2), null);
+ 
+ 
+ 
+   if (!discardPile.isEmpty()) {
+  canvas.drawBitmap(discardPile.get(0).getBitmap(),
+(screenW/2)+10,
+(screenH/2)-(cardBack.getHeight()/2),
+null);
+    } 
+ 
+ 
+ 
+ 
+}
+  
+  
+ //این متد همان متد شرح داده شده در بخش قبلی میباشد :
+	private void initCards() {
+		for (int i = 0; i < 4; i++) {
+			for (int j = 102; j < 115; j++) {
+				int tempId = j + (i*100);
+				Card tempCard = new Card(tempId);
+				int resourceId = getResources().getIdentifier("card" + tempId, "drawable", myContext.getPackageName());
+				Bitmap tempBitmap = BitmapFactory.decodeResource(myContext.getResources(), resourceId);
+		        scaledCardW = (int) (screenW/8);
+		        scaledCardH = (int) (scaledCardW*1.28);
+				Bitmap scaledBitmap = Bitmap.createScaledBitmap(tempBitmap, scaledCardW, scaledCardH, false); 
+				tempCard.setBitmap(scaledBitmap);
+				deck.add(tempCard);
+			}
+		}
+	}
+  
+
+//این متد اولین کارت موجود در deck را در آرایه لیستی که آرگومان متد drawCard است قرار میدهد(مثلا در فراخوانی (myHand)drawCard اولین کارت در myHand قرار میگیرد) و سپس این کارت از deck حذف میشود(این حذف بخاطر رخ ندادن تکرار کارتها انجام میشود ) :
+	private void drawCard(List<Card> handToDraw) {
+handToDraw.add(0, deck.get(0));
+ deck.remove(0);
+	}
+	
+
+//در این متد deck بهم زده میشود(مخلوط میشود) تا کاملا کارتها تصادفی باشند و سپس برای هر دست از بازیکنان ، هفت بار متد drawCard فراخوانی شده و کارتها را در اختیار آنها قرار میدهد(در آرایه لیست آنها قرار میدهد) :
+	private void dealCards() {
+		Collections.shuffle(deck,new Random());
+		for (int i = 0; i < 7; i++) {
+			drawCard(myHand);
+			drawCard(oppHand);
+			
+		}		
+	}
+  
+  
+  
+  
+  
+}

@@ -1,0 +1,93 @@
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+   android:background="@drawable/back_resource2">
+
+   
+    <TextView
+        android:id="@+id/textView3about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="منابع برنامه"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:textSize="15dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#cf07f3" />
+
+    <LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" 
+   >
+    
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/resource1" />
+    
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="10dp" 
+        android:layout_marginLeft="5dp"      
+        android:src="@drawable/resource2" />
+    
+ </LinearLayout>
+    
+ <LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="164dp"
+        android:layout_height="75dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="5dp" 
+        android:textColor="#f8136f"
+        android:text="Android Game Programming FOR DUMmIES" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp" 
+          android:textColor="#f8136f"
+        android:text="Android Game Programming by Example" />
+    
+  </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView1about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="طراح و برنامه نویس : محمد احمدوند"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:textSize="15dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#8413f8" />
+
+    <TextView
+        android:id="@+id/textView2about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="android-mtr-design.ir"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:textSize="15dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#cf07f3" />
+
+    
+   
+</LinearLayout>

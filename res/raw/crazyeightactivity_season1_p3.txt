@@ -1,0 +1,25 @@
+﻿
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
+
+public class CracyEightsActivity extends Activity {
+
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        TitleView tView = new TitleView(this);
+
+//نگهداشتن صفحه نمایش بصورت آماده به کار(روشن) و خواب نرفتن صفحه(این قابلیت در بازیها لازم است تا صفحه نمایش در زمانیکه بمدت طولانی لمس نمیشود ، بحالت خواب نرود) :
+        tView.setKeepScreenOn(true);
+   
+//حذف کردن تیتر صفحه نمایش ، تا فضای بیشتری برای محیط بازی موجود باشد : requestWindowFeature(Window.FEATURE_NO_TITLE);
+       
+//بعد از حذف تیتر صفحه ، لازم است با این دستور صفحه نمایش را تمام صفحه تعیین کرد تا فضایی که با حذف تیتر ایجاد شده ، به صفحه نمایش اضافه شود : getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        setContentView(tView);
+    }
+}

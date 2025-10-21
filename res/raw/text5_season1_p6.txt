@@ -1,0 +1,33 @@
+﻿import android.graphics.Bitmap;
+
+//متغیر های مورد نیاز در برنامه را تعریف میکنیم . id  آی دی هر کارت میباشد . suit دسته ایست که کارت از آن نوع است و یک کد است که توسط برنامه نویس به دلخواه تعیین شده و برای مدیریت کارتها استفاده میشود ، در این بازی هر دسته از کارتها یک suit دارند . مثلا کارتهای Diamond(خشت) suit برابر 100 دارند و کارتهای Club(گیشنیز) برابر 200 و کارتهای Heart(دل) برابر 300 و کارتهای Spade(پیک) suit برابر 400 دارند . rank عددیست که روی هر کارت نوشته شده است :
+public class Card {
+ private int id;
+ private int suit;
+ private int rank;
+ private Bitmap bmp;
+ 
+//هر بار که کلاس Card فراخوانی شود ، سازنده ی این کلاس مقداردهی id=newId را برای همان کارت فراخوانی شده انجام میدهد . عبارت Math.round((id/100) * 100) مقدار suit را  برای کارت فراخوانی شده بدست میدهد . مثلا اگر برای کارت شماره ی 102 یعنی ۲خشت 100*(102/100) برابر 100 میشود که همان suit برای دسته ی خشت(Diamond) میباشد . عبارت id - suit هم برای این کارت برابر 2 میشود که همان شماره ی روی کارت میباشد :
+ public Card(int newId) {
+ id = newId;
+ suit = Math.round((id/100) * 100); 
+ rank = id - suit; 
+ }
+ 
+//چند متد زیر نیز bitmap , id , suit و rank را برای کارت فراخوانی شده برمیگردانند :
+ public void setBitmap(Bitmap newBitmap) {
+ bmp = newBitmap;
+ }
+ public Bitmap getBitmap() {
+ return bmp;
+ }
+ public int getId() {
+ return id;
+ }
+ public int getSuit() {
+ return suit;
+ }
+ public int getRank() {
+ return rank;
+ }
+}

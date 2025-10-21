@@ -1,0 +1,99 @@
+﻿import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
+
+//با کلاس SurfaceView میتوان طراحیهای برنامه از قبیل پیکسل ، نقطه ، خط ، شکل ، تصویر و ... را انجام داد . علاوه بر این میتوان با این کلاس ورودیهای کاربر را کنترل کرد .
+در این شرایط میتوان با implements کردن اینترفیس Runnable یک thread آغاز کنیم که اجازه میدهد به لوپ(loop) اصلی بازی که هم ورودیهای کاربر و هم موارد ضروری مورد لزوم سیستم را در یک زمان دریافت کند .در صفحه بازی بمنظور همزمان انجام نشدن عمل طراحی و نیز سایر فعالیتهایی که سیستم درگیر انجام آنهاست(به دلیل جلوگیری از افت عملکرد سیستم) ، ابتدا توسط SurfaceHolder صفحه را قفل میکنیم و یک thread کار طراحی را انجام میدهد و بعد از طراحی لازم صفحه را از حالت قفل خارج میکنیم :
+public class TDView extends SurfaceView implements Runnable{
+
+    volatile boolean playing;
+    Thread gameThread = null;
+
+    // Game objects
+    private PlayerShip player;
+
+    // For drawing
+    private Paint paint;
+    private Canvas canvas;
+    private SurfaceHolder ourHolder;
+
+
+    public TDView(Context context) {
+        super(context);
+
+        // Initialize our drawing objects
+        ourHolder = getHolder();
+        paint = new Paint();
+
+
+        // Initialise our player ship
+        player = new PlayerShip(context);
+    }
+
+//متد run سه متد دیگر را در یک Thread اجرا میکند . این متد با شرط while ایی که دارد بشکل حلقه ی تکرار بینهایت اجرا می شود . در ابتدا player در فاصله ی 50 پیکسل از چپ و بالای صفحه ی نمایش(که این مختصات را از کلاس PlayerShip میگیرد) ، نمایش داده میشود و سپس با اجرای حلقه ی while دوباره متدها فراخوانی شده و مقدار x یعنی فاصله از چپ صفحه نمایش افزایش یافته و دوباره صفحه بازی طراحی شده و این ادامه دارد که بشکل حرکت در صفحه نمایش داده میشود
+:
+    @Override
+    public void run() {
+        while (playing) {
+            update();
+            draw();
+            control();
+        }
+    }
+
+//این متد با فراخوانی متد update از کلاس player متغیر x که همان فاصله از طرف چپ صفحه نمایش میباشد را بمقدار یک واحد افزایش میدهد(++x) :
+    private void update(){
+        // Update the player
+        player.update();
+    }
+
+//این متد با شرط معتبر بودن سطحی که در اختیار دارد و نگهداشته است ، سطح را قفل میکند و بعد از طراحی لازم سطح را از حالت قفل خارج میکند :
+    private void draw(){
+        if (ourHolder.getSurface().isValid()) {
+            //First we lock the area of memory we will be drawing to
+            canvas = ourHolder.lockCanvas();
+
+            // Rub out the last frame
+            canvas.drawColor(Color.argb(255, 0, 0, 0));
+
+            // Draw the player
+            canvas.drawBitmap(player.getBitmap(), player.getX(), player.getY(), paint);
+
+            // Unlock and draw the scene
+            ourHolder.unlockCanvasAndPost(canvas);
+        }
+    }
+
+//سیستم اندروید زمان را بر حسب milliSecond (هزارم ثانیه) محاسبه میکند . thread برنامه متد run را بشکل نامحدود اجرا میکند و به تعداد تقریبی هزار بار در ثانیه . برای کنترل کردن این اجرا از نرخ شصت اجرا در ثانیه (FPS) استفاده میشود (1000/60=17) یعنی با خواب کردن Thread بمدت 17 میلی ثانیه ، هزار میلی ثانیه به 60 قسمت تقسیم شده و تعداد تکرار اجراها برابر 60 میشود و سرعت طراحی کنترل و قابل روئت میشود :
+    private void control(){
+        try {
+            gameThread.sleep(17);
+        } catch (InterruptedException e) {
+
+        }
+    }
+
+    // Clean up our thread if the game is interrupted or the player quits
+//بمنظور پایان دادن به thread ایی که متوقف شده :
+    public void pause() {
+        playing = false;
+        try {
+            gameThread.join();
+        } catch (InterruptedException e) {
+
+        }
+    }
+
+    // Make a new thread and start it
+    // Execution moves to our R
+//آغاز کننده ی Thread جدید :
+    public void resume() {
+        playing = true;
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
+
+}

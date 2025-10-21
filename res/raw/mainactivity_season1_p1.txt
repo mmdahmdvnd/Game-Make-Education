@@ -1,0 +1,22 @@
+﻿
+
+import android.app.Activity;
+import android.widget.TextView;
+import android.os.Bundle;
+
+
+public class MainActivity extends Activity {
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+ 
+//یک شئ از کلاس CircleView که دومین کلاس پروژه ماست ایجاد میکنیم(کلمه ی this در اینجا اشاره به Context همین کلاس MainActivity دارد که این کانتکست را به منظور وجود کانتکست در سازنده ی کلاس CircleView به آن داده ایم) :
+CircleView circleview = new CircleView(this);
+   
+//اتصال کلاس MainActivity با View آن که همان شئ ساخته شده از کلاس CircleView یعنی circleview میباشد 
+    setContentView(circleview);
+        
+  }
+
+}

@@ -1,0 +1,21 @@
+﻿import android.graphics.Bitmap;
+
+//این کلاس بعنوان ویژگی هر یک از کارتهای موجود در آرایه ی ماست . هر بار که این کلاس در برنامه فراخوانی شود ، یک کارت  با id و bitmap خود را برمیگرداند :
+public class Card {
+
+ private int id;
+ private Bitmap bmp;
+ 
+ public Card(int newId) { 
+ id = newId;
+ }
+ public void setBitmap(Bitmap newBitmap) { 
+ bmp = newBitmap;
+ }
+ public Bitmap getBitmap() {
+ return bmp;
+ }
+ public int getId() { 
+ return id;
+ }
+}

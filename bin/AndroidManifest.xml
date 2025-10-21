@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mmd.educationandroidgame"
+    android:versionCode="2"
+    android:versionName="2.2.2" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="18" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.mmd.educationandroidgame.Splash"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity android:name="com.mmd.educationandroidgame.MainActivity"
+            android:screenOrientation="portrait"></activity>
+        
+       <activity android:name="com.mmd.educationandroidgame.Season0"
+            android:screenOrientation="portrait"></activity>
+        
+        <activity android:name="com.mmd.educationandroidgame.Season1"
+            android:screenOrientation="portrait"></activity>
+        
+        <activity android:name="com.mmd.educationandroidgame.Season2"
+            android:screenOrientation="portrait"></activity>
+        
+        <activity android:name="com.mmd.educationandroidgame.Season3"
+            android:screenOrientation="portrait"></activity>
+        
+        <activity android:name="com.mmd.educationandroidgame.Season4"
+            android:screenOrientation="portrait"></activity>            
+        
+        <activity android:name="com.mmd.educationandroidgame.MainActivityCrz8P1"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".MainFrag_season1_p1"
+            android:screenOrientation="portrait"></activity>
+        
+        <activity android:name="com.mmd.educationandroidgame.MainActivityCrz8P2"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".MainFrag_season1_p2"
+            android:screenOrientation="portrait"></activity>
+        
+        <activity android:name="com.mmd.educationandroidgame.Crazy8ActivityCrz8P3"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".MainFrag_season1_p3"
+            android:screenOrientation="portrait"></activity>
+        
+        <activity android:name="com.mmd.educationandroidgame.Crazy8ActivityCrz8P4"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name="com.mmd.educationandroidgame.GameActivityCrz8P4"
+            android:screenOrientation="portrait"></activity>
+         <activity android:name=".MainFrag_season1_p4"
+            android:screenOrientation="portrait"></activity>
+        
+        <activity android:name="com.mmd.educationandroidgame.Crazy8ActivityCrz8P5"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name="com.mmd.educationandroidgame.GameActivityCrz8P5"
+            android:screenOrientation="portrait"></activity>
+         <activity android:name=".MainFrag_season1_p5"
+            android:screenOrientation="portrait"></activity>
+        
+        <activity android:name="com.mmd.educationandroidgame.Crazy8ActivityCrz8P6"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name="com.mmd.educationandroidgame.GameActivityCrz8P6"
+            android:screenOrientation="portrait"></activity>
+         <activity android:name=".MainFrag_season1_p6"
+            android:screenOrientation="portrait"></activity>
+        
+        <activity android:name="com.mmd.educationandroidgame.Crazy8ActivityCrz8P7"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name="com.mmd.educationandroidgame.GameActivityCrz8P7"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".MainFrag_season1_p7"
+            android:screenOrientation="portrait"></activity>
+       
+        <activity android:name="com.mmd.educationandroidgame.Crazy8ActivityCrz8P8"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name="com.mmd.educationandroidgame.GameActivityCrz8P8"
+            android:screenOrientation="portrait"></activity>
+         <activity android:name=".MainFrag_season1_p8"
+            android:screenOrientation="portrait"></activity>
+        
+        <activity android:name="com.mmd.educationandroidgame.Crazy8ActivityCrz8P9"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name="com.mmd.educationandroidgame.GameActivityCrz8P9"
+            android:screenOrientation="portrait"></activity>
+         <activity android:name=".MainFrag_season1_p9"
+            android:screenOrientation="portrait"></activity>
+    
+         
+         
+        
+        <activity android:name=".WhackAMoleActivityWAMP1"
+            android:screenOrientation="landscape"></activity>
+        <activity android:name=".MainFrag_season2_p1"
+            android:screenOrientation="portrait"></activity>
+        
+        <activity android:name=".WhackAMoleActivityWAMP2"
+            android:screenOrientation="landscape"></activity>
+        <activity android:name=".MainFrag_season2_p2"
+            android:screenOrientation="portrait"></activity>
+        
+        <activity android:name=".WhackAMoleActivityWAMP3"
+            android:screenOrientation="landscape"></activity>
+        <activity android:name=".MainFrag_season2_p3"
+            android:screenOrientation="portrait"></activity>
+        
+        <activity android:name=".WhackAMoleActivityWAMP4"
+            android:screenOrientation="landscape"></activity>
+        <activity android:name=".MainFrag_season2_p4"
+            android:screenOrientation="portrait"></activity>
+    
+        <activity android:name=".WhackAMoleActivityWAMP5"
+            android:screenOrientation="landscape"></activity>
+        <activity android:name=".MainFrag_season2_p5"
+            android:screenOrientation="portrait"></activity>
+        
+        
+        
+        
+        <activity android:name=".MainActivityTappyDefP1"
+            android:screenOrientation="landscape"></activity>       
+        <activity android:name=".GameActivityTappyDefP1"
+            android:screenOrientation="landscape"></activity> 
+        <activity android:name=".MainFrag_season3_p1"
+            android:screenOrientation="portrait"></activity>    
+                          
+        <activity android:name=".MainActivityTappyDefP2"
+            android:screenOrientation="landscape"></activity>   
+        <activity android:name=".GameActivityTappyDefP2"
+            android:screenOrientation="landscape"></activity>
+         <activity android:name=".MainFrag_season3_p2"
+            android:screenOrientation="portrait"></activity>   
+        
+        <activity android:name=".MainActivityTappyDefP3"
+            android:screenOrientation="landscape"></activity>   
+        <activity android:name=".GameActivityTappyDefP3"
+            android:screenOrientation="landscape"></activity>
+         <activity android:name=".MainFrag_season3_p3"
+            android:screenOrientation="portrait"></activity>   
+    
+         
+         
+         
+         <activity android:name=".MemoryGameP1"
+             android:screenOrientation="portrait"></activity>
+         <activity android:name=".MainFrag_season4_p1"
+            android:screenOrientation="portrait"></activity>
+         
+         <activity android:name=".MemoryGameP2"
+             android:screenOrientation="portrait"></activity>
+         <activity android:name=".MainFrag_season4_p2"
+            android:screenOrientation="portrait"></activity>
+         
+         <activity android:name=".MemoryGameP3"
+             android:screenOrientation="portrait"></activity>
+         <activity android:name=".MainFrag_season4_p3"
+            android:screenOrientation="portrait"></activity>
+         
+         <activity android:name=".MemoryGameP4"
+             android:screenOrientation="portrait"></activity>
+         <activity android:name=".MainFrag_season4_p4"
+            android:screenOrientation="portrait"></activity>
+         
+    </application>
+
+</manifest>

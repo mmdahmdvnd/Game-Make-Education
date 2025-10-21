@@ -1,0 +1,20 @@
+﻿
+
+import android.app.Activity;
+import android.widget.TextView;
+import android.os.Bundle;
+
+//اکتیویتی جدید برنامه را با عنوان GameActivity تعیین میکنیم(قبل از هر کاری میبایست این اکتیویتی جدید را در فایل منیفست برنامه ثبت کنیم) . این کلاس یک شئ از کلاس GameView را بعنوان ویوی خود میگیرد :
+public class GameActivity extends Activity {
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    
+    GameView gviw = new GameView(this);
+    
+    setContentView(gviw);
+        
+  }
+
+}

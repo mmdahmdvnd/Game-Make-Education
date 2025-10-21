@@ -1,0 +1,57 @@
+﻿import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.view.MotionEvent;
+import android.view.View;
+
+//این کلاس را از View مشتق میکنیم چون قرار است یک View را به کلاس اصلی ما تحویل دهد :
+public class drawBitmapView extends View {
+
+//یک شئ از کلاس Bitmap ایجاد میکنیم و سایر متغیرهای لازم در برنامه را تعریف میکنیم :
+  private Bitmap drawbitmap;
+  private int dX;
+  private int dY;
+  private int screenW;
+  private int screenH;
+	
+//تعریف سازنده ی کلاس . متد ()super در اینجا ، سازنده ی کلاس View که ما کلاس خود را از آن مشتق کردیم را فراخوانی میکند و با این کار کلاس ما تمام ویژگیهای یک کلاس از نوع View را خواهد داشت . کلمه ی context نیز بخاطر وجود یک کانتکست در سازنده ی کلاس View میباشد ، که در اینجا همان کانتکست که در بالا تعریف کردیم را به آن داده ایم و در آخر ، شئ ایی که از کلاس بیتمپ ساختیم را در سازنده ی خود مقداردهی کرده ایم  :
+	public drawBitmapView(Context context) {
+		super(context);
+		  drawbitmap = 
+BitmapFactory.decodeResource(getResources(), 
+ R.drawable.img1);
+	}
+	
+//با توجه به توضیحات بخشهای قبل، با حرکت نقطه ی لمس صفحه نمایش(فراخوانی متد ()onTouchEvent) متد ()onDraw فراخوانی شده و در صفحه یک تصویر طراحی و حرکت میکند :
+	 @Override 
+	 protected void onDraw(Canvas canvas) {
+     canvas.drawRGB(0,0,0);
+		canvas.drawBitmap(drawbitmap,dX,dY,null);
+	 }
+	 
+	 public boolean onTouchEvent(MotionEvent event) {
+	        int eventaction = event.getAction();   
+	        int X = (int)event.getX();
+	        int Y = (int)event.getY();
+
+	        switch (eventaction ) {
+	        case MotionEvent.ACTION_DOWN: 
+	        	break;
+	        case MotionEvent.ACTION_MOVE: 
+	                 dX = X;
+	                 dY = Y;
+	        	break;
+        	
+	        case MotionEvent.ACTION_UP:
+	        	break;
+	        } 
+	        invalidate();
+			return true;
+        
+	}
+ 
+}
+

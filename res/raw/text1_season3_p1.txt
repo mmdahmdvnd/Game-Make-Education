@@ -1,0 +1,194 @@
+﻿import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.os.Handler;
+import android.os.Message;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
+//
+استفاده از View بمنظور نمایش و اجرائیات محیط بازی باعث میشود که هم نتیجه ی عکس العملهای کاربر مثل لمس صفحه نمایش که نتیجه ی آن مثلا طراحی های محیط بازی که توسط متد ()onDraw صورت میگیرد میباشد و هم سایر فعالیتهای برنامه همه در یک Thread یعنی Thread اصلی برنامه انجام شود و این باعث کند شدن بازی و منطبق نبودن عکس العملهای کاربر با زمان بازی میشود . که این مشکل در برنامه ها و بازیهای بزرگ خود را بیشتر نشان میدهد . راه حل این مشکل استفاده از SurfaceView میباشد که نتیجه ی عکس العملهای کاربر از قبیل لمس صفحه نمایش و طراحی های زمان بازی در Thread جداگانه انجام گیرد و Thread اصلی برنامه به کارهای دیگر برنامه میپردازد .
+اجرا کردن(implements) اینترفیس  SurfaceHolder.Callback به منظور دریافت اطلاعات در مورد تغییر سطح یا صفحه نمایشی میباشد . یعنی اینکه تغییر یا طراحی ایی در صفحه انجام دهیم و سپس آنرا برای همین اکتیویتی که در آن هستیم بفرستیم(callback کنیم) :
+public class WhackAMoleView extends SurfaceView implements 
+SurfaceHolder.Callback {
+
+ private Context myContext; 
+ private SurfaceHolder mySurfaceHolder;
+ private Bitmap backgroundImg;
+ private int screenW = 1;
+ private int screenH = 1;
+ private boolean running = false;
+ private boolean onTitle = true;
+ private WhackAMoleThread thread;
+ 
+ public WhackAMoleView(Context context, 
+AttributeSet attrs) {
+ super(context, attrs);
+
+//این قطعه کد بجهت نگهداشتن سطح و طراحی در آن بکار رفته (که در پایین توضیح داده شده است) :
+ SurfaceHolder holder = getHolder();
+
+//تغییر ایجاد شده در صفحه ، بوسیله ی این متد برای همین اکتیویتی کنونی برگشت داده میشود :
+ holder.addCallback(this);
+
+//هندلر(Handler) قسمتی از سیستم فریمورک اندروید میباشد که بمنظور مدیریت thread استفاده میشود . درون متد ()Handler متد ()handleMessage را Override میکنیم . این Handler در اینجا کاربردی ندارد و تنها به دلیل استفاده از thread آمده است :
+ thread = new WhackAMoleThread(holder, context, 
+new Handler() {
+ @Override
+public void handleMessage(Message m) {
+ }
+ });
+ setFocusable(true);
+ }
+
+
+
+//این متد بجهت مدیریت thread از درون اکتیویتی بکار میرود(در صورت نیاز) :
+ public WhackAMoleThread getThread() { 
+ return thread;
+ }
+
+
+
+
+ //سازنده ی کلاس WhackAMoleThread مقداردهی های لازم بجهت نگهداشتن surface را انجام میدهد . context نیز در اینجا بجهت لود کردن تصاویر بکار میرود :
+class WhackAMoleThread extends Thread {
+		
+        public WhackAMoleThread(SurfaceHolder surfaceHolder, Context context,
+                Handler handler) {
+            mySurfaceHolder = surfaceHolder;
+            myContext = context;
+
+//تصویر title بعنوان تصویر صفحه ی شروع برنامه در نظر گرفته میشود :
+            backgroundImg = BitmapFactory.decodeResource(context.getResources(), R.drawable.title); 		
+        }
+
+//همه ی متدهای SurfaceView و SurfaceHolder.Callback توسط thread اجرا کننده ی SurfaceView یعنی thread اصلی اپلیکیشن فراخوانی میشوند . پس هر متدی که جهت طراحی در SurfaceHolder بکار میبریم(طراحی با thread ثانویه در سطحی که نگهداشته ایم) را در متد {}(mySurfaceHolder)synchronized بکار میبریم تا این طراحی و اجرائیات در mySurfaceHolder صورت گیرد و مستقل از thread اصلی باشد  :
+    @Override
+        public void run() {
+            while (running) {
+                Canvas c = null;
+                try {
+//با ایجاد thread جدید بمنظور جداکردن طراحیهای برنامه از سایر فرایندهای اجرایی برنامه ، حال باید سطحی که با SurfaceHolder نگهداری شده را قفل کنیم و پس از انجام طراحی لازم(توسط thread جدید) در آن ، از حالت قفل خارج کنیم(در صورت باز نکردن قفل surface ، برنامه ممکن است بطور کامل قفل شود و درست کار نکند) : 
+                    c = mySurfaceHolder.lockCanvas(null);
+                    synchronized (mySurfaceHolder) {
+         
+                        draw(c);
+                    }
+                } finally {
+
+//اگر surface قفل شده بود(c != null) پس آنرا آزاد و باز میکنیم :
+                    if (c != null) {
+          mySurfaceHolder.unlockCanvasAndPost(c);
+                    }
+                }
+            }
+        }
+    
+
+
+//متد canvas نیز Bitmap را با resource (منبع) backgroundImg با فاصله ی صفر از بالا و چپ صفحه نمایش طراحی و نمایش میدهد :
+ private void draw(Canvas canvas) {
+ try {
+ canvas.drawBitmap(backgroundImg, 0, 0, 
+null);
+ } catch (Exception e) {
+ }
+ }
+
+
+//این متد از نوع boolean میباشد و خروجی ایی ندارد بجز برگرداندن true یعنی اجرا شدن این متد بدرستی و مقداردهی متغیر backgroundImg برای اجرای thread (متد doTouchEvent بعنوان یک واسطه در اجرای thread مقداردهی ایی برای آن انجام میدهد) :
+ boolean doTouchEvent(MotionEvent event) {
+ synchronized (mySurfaceHolder) {
+ int eventaction = event.getAction();
+ int X = (int)event.getX();
+ int Y = (int)event.getY();
+ switch (eventaction ) {
+ case MotionEvent.ACTION_DOWN:
+ break;
+ case MotionEvent.ACTION_MOVE:
+ break;
+ case MotionEvent.ACTION_UP:
+ if (onTitle) {
+//در متد ()draw متغیر backgroundImg استفاده میشود :
+ backgroundImg = 
+BitmapFactory.decodeResource
+(myContext.getResources(), 
+R.drawable.background);
+ backgroundImg = 
+Bitmap.createScaledBitmap(backgroundImg,
+ screenW, screenH, true);
+ onTitle = false;
+ }
+ break;
+ }
+ }
+ return true;
+ }
+
+
+
+//دو مقدار width و height که از متد surfaceChanged میآیند ، در متد زیر بعنوان عرض و طول صفحه نمایش منظور میشوند و این بسته به دستگاه ما و مطابق ابعاد صفحه نمایش آن صورت میگیرد و سپس backgroundImg با طول و عرض تعیین شده بعنوان Bitmap مقیاس بندی شده ، در متغیر backgroundImg قرار میگیرد :
+ public void setSurfaceSize(int width,
+int height) { 
+ synchronized (mySurfaceHolder) {
+ screenW = width;
+ screenH = height;
+ backgroundImg = Bitmap.createScaledBitmap(
+backgroundImg, width, height, 
+true);
+ }
+ }
+
+
+//مقداردهی متغیر running با دو مقدار true و یا false مورد نیاز برای اجرای thread :
+ public void setRunning(boolean b) {
+ running = b;
+ }
+ }
+
+
+
+//این متد در زمان لمس صفحه نمایش فراخوانی میشود :
+ @Override
+ public boolean onTouchEvent(MotionEvent event) {
+   return thread.doTouchEvent(event);
+ }
+
+
+
+
+
+//این متد زمانی فراخوانی میشود که هرگونه تغییر بنیادی از قبیل format یا size در سطح(surface) ایجاد شود(زمانیکه بازی اجرا شود صفحه نمایش بسته به دستگاهی که بازی در آن اجرا میشود ، view بازی را نمایش میدهد یعنی بسته به دستگاه ما صفحه نمایش تغییر میکند) یعنی بعد از متد surfaceCreated(SurfaceHolder) :
+ @Override
+ public void surfaceChanged(SurfaceHolder holder, int 
+format, int width, int height) {
+ thread.setSurfaceSize(width, height);
+ }
+
+
+
+
+//سطح ایی(Surface) که نگهداشته شده است ، تنها از طریق فراخوانی دو متد (SurfaceHolder)surfaceCreated و (SurfaceHolder)surfaceDestroyed در دسترس است(پس اجرای دنباله ی برنامه از این نقطه شروع میشود) :
+ @Override
+ public void surfaceCreated(SurfaceHolder holder) {
+ thread.setRunning(true);
+//اگر حالت اولیه ،  یعنی اولین اجرای برنامه(Start Up) باشد ، thread با حالتهای پیشفرضی که در کلاس WhackAMoleThread دارد اجرا شده و حالت اولیه ی برنامه اجرا میشود :
+ if (thread.getState() == Thread.State.NEW) { 
+thread.start();
+ }
+ }
+
+
+
+//وقتی از برنامه خارج شویم و surface از بین رود این متد فراخوانی میشود :
+ @Override
+ public void surfaceDestroyed(SurfaceHolder holder) {
+ thread.setRunning(false);
+ }
+}
+ 
+
+//****** اجرای برنامه از متد surfaceCreated شروع میشود و بعد از آن متد surfaceChanged فراخوانی شده و متغیرهای thread توسط این متد مقداردهی میشوند سپس thread(که در سازنده ی کلاس اصلی تعیین شد) اجرا شده و صفحه ی تیتر برنامه با تصویر زمینه ی title اجرا میشود . حال با لمس صفحه ی اول بازی ، متد onTouchEvent فراخوانی شده و متد doTouchEvent متغیر backgroundImg را برای اجرای thread مقداردهی کرده و thread (با مقدار جدید برای backgroundImg) اجرا میشود و صفحه تصویر background را نمایش میدهد *******
